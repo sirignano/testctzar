@@ -13,8 +13,8 @@ et sur les situations où chacune des technologies est préférable à l’autre
 
 
 Avec un backend en Nodejs, l'asynchrone permettrais de mieux gerrer les ressources.
-Un sevreur nodejs avec des ressources limités peut effectuer plus de requetes en un temps restreint qu'un serveur rails.
-Cependant il n'y avait rien dans ce projet qui nécéssitais de se poser une telle question.
+Un sevreur nodejs avec des ressources limitées peut effectuer plus de requetes en un temps restreint qu'un serveur rails.
+Cependant il n'y avait rien dans ce projet qui necessite de se poser une telle question.
 
 
 
