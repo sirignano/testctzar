@@ -1,0 +1,142 @@
+
+<% @o = 0 %>
+<% @templates.each do |t| %>
+
+
+<% if params[:ref].to_i == t.ref %>
+<div style="display:block" class="container-fluid" >
+<% else %>
+<div style="display:none">
+<% end %>
+	<%= bootstrap_form_tag url: '/update' do |f| %>
+
+
+<% if t.ref == 0  || t.ref == 1 %>
+
+		<div class="fancy" style="-webkit-box-shadow: 5px 5px 5px 5px #363636;
+box-shadow: 1px 1px 1px 1px #363636;">
+			<div class="row">
+			  <div class="col-md-4"><%= f.text_area :text1, value: t.text1 %></div>
+
+<% if t.ref == 0 %>
+		  	<div class="col-md-4">
+		  		<img name="<%= (@o + 1).to_s %>" src="<%= t.pic2 %>" ondrop="drop(event)" ondragover="allowDrop(event)"  width="160px" height="160px">
+		  	</div>
+		<% else %>
+			<div class="col-md-4"><%= f.text_area :text2, value: t.text2 %></div>
+		<% end %>
+			  <div class="col-md-4"><%= f.text_area :text3, value: t.text3 %></div>
+			</div>
+  	  	
+  	  
+
+			<div class="row">
+			  <div class="col-md-4">
+				<img name="<%= @o.to_s %>" src="<%= t.pic1 %>" ondrop="drop(event)" ondragover="allowDrop(event)"  width="160px" height="160px">
+			</div>
+	<% if t.ref == 0 %>
+			  <div class="col-md-4"><%= f.text_area :text2, value: t.text2 %></div>
+	  <% else %>
+
+	    	<div class="col-md-4">
+	    		<img name="<%= (@o + 1).to_s %>" src="<%= t.pic2 %>" ondrop="drop(event)" ondragover="allowDrop(event)"  width="160px" height="160px">
+	    	</div>
+	<% end %>
+	<div class="col-md-4">
+		<img name="<%= (@o + 2).to_s %>" src="<%= t.pic3 %>" ondrop="drop(event)" ondragover="allowDrop(event)"  width="160px" height="160px">
+	</div>
+	</div>
+	<div class="row simple">
+	  <div class="col-md-6 box">
+		  <button type="button" class="btn btn-<%= t.button1 %> btn-lg btn-block" name="<%= t.button1 %>" onclick="change_class(this, button1<%= @o.to_s %>)">Validation</button>
+	</div>
+	  <div class="col-md-6 box">
+		  <button type="button" class="btn btn-<%= t.button2 %> btn-lg btn-block" name="<%= t.button2 %>" onclick="change_class(this, button2<%= @o.to_s %>)">Annulation</button>
+  	  </div>
+  </div>
+</div>
+<% else %>
+<div class="fancy">
+
+			<div class="row">
+					  <div class="col-md-4 ">
+						<img name="<%= @o.to_s %>" src="<%= t.pic1 %>" ondrop="drop(event)" ondragover="allowDrop(event)"  width="160px" height="160px">
+						</div>
+
+					  	<div class="col-md-4 ">
+					  		<img name="<%= (@o + 1).to_s %>" src="<%= t.pic2 %>" ondrop="drop(event)" ondragover="allowDrop(event)"  width="160px" height="160px">
+					  	</div>
+					<div class="col-md-4 ">
+						<img name="<%= (@o + 2).to_s %>" src="<%= t.pic3 %>" ondrop="drop(event)" ondragover="allowDrop(event)"  width="160px" height="160px">
+					</div>
+			</div>	  	
+			  	  	
+					<hr>
+
+				<div class="row">
+					  <div class="col-md-4"><%= f.text_area :text1, value: t.text1 %></div>
+					<div class="col-md-4"><%= f.text_area :text2, value: t.text2 %></div>
+					  <div class="col-md-4"><%= f.text_area :text3, value: t.text3 %></div>
+				</div>
+	<div class="row simple">
+	  <div class="col-md-6 box">
+		  <button type="button" class="btn btn-<%= t.button1 %> btn-lg btn-block" name="<%= t.button1 %>" onclick="change_class(this, button1<%= @o.to_s %>)">Validation</button>
+	</div>
+	  <div class="col-md-6 box">
+		  <button type="button" class="btn btn-<%= t.button2 %> btn-lg btn-block" name="<%= t.button2 %>" onclick="change_class(this, button2<%= @o.to_s %>)">Annulation</button>
+  	  </div>
+  </div>
+</div>
+<% end %>
+  
+  	  	<%= f.hidden_field :pic1, value: t.pic1, class: @o.to_s %>
+ 	   	<%= f.hidden_field :pic2, value: t.pic2, class: (@o + 1).to_s %>
+  	  	<%= f.hidden_field :pic3, value: t.pic3, class: (@o + 2).to_s %>
+  
+
+
+
+
+  	  	<%= f.hidden_field :button1, value: t.button1, id: "button1" + @o.to_s %>
+  	  	<%= f.hidden_field :button2, value: t.button2, id: "button2" + @o.to_s %>
+		
+
+	<div class="row simple">
+	  <div class="col-md-6">
+  	  	<%= f.hidden_field :refs, value: t.ref %>
+  	  	<%= f.hidden_field :id, value: t.id %>
+  	  	<%= f.submit "Sauvegarder", class: "btn btn-success" %>
+
+	</div>
+		  <div class="col-md-6">
+		<a href="/?ref=<%= t.ref.to_s %>" class="btn btn-danger">Annuller</a>
+	</div>
+</div>
+  <% @o = @o + 3 %>
+	<% end %>
+</div>
+</div>
+
+<% if params[:ref].to_i == t.ref %>
+	
+	<div class="container simple">
+	<% Picture.where("template_id = #{t.id}").each do |p| %>
+	           <div class="col-lg-3 col-md-4 col-xs-6 thumb">
+				  <img id="liste" src="<%= p.url %>" draggable="true" draggable="true"
+ondragstart="drag(event)" width="160px" height="160px"/>
+			  </div>
+	<% end %>
+</div>
+<div style="display:block" class="container"  >
+<% else %>
+<div style="display:none">
+<% end %>
+
+	<%= bootstrap_form_tag url: '/upload' do |f| %>
+  	  	<%= f.file_field :file %>
+		<%= f.hidden_field :refs, value: t.ref %>
+  	  	<%= f.hidden_field :id, value: t.id %>
+  	  	<%= f.submit "Upload", class: "btn btn-success" %>
+	<% end %>
+</div>
+<% end %>

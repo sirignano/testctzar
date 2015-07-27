@@ -1,0 +1,57 @@
+1)
+
+
+DEMO AT :
+
+http://testctzar.herokuapp.com/
+
+
+
+Même si le candidat ne fournit pas de code Javascript coté serveur, il est demandé de d’argumenter 
+sur les avantages et les inconvénients d’utiliser ce type de technologie en lieu et place de Ruby on Rails 
+et sur les situations où chacune des technologies est préférable à l’autre.
+
+
+Avec un backend en Nodejs, l'asynchrone permettrais de mieux gerrer les ressources.
+Un sevreur nodejs avec des ressources limités peut effectuer plus de requetes en un temps restreint qu'un serveur rails.
+Cependant il n'y avait rien dans ce projet qui nécéssitais de se poser une telle question.
+
+
+
+2) Le candidat devra répondre par écrit en proposant une solution technique permettant une 
+l’implémentation répondant à la problématique suivante :
+Soit une liste d’utilisateurs et une fonction permettant de parrainer l’inscription de nouveaux 
+utilisateurs.
+Proposer une solution permettant de gérer les utilisateurs de manière à répondre à la problématique 
+suivante
+- Etre capable de connaitre facilement l’arborescence des utilisateurs en fonction des critères 
+« Parrain de » « Parrainé par »
+- Trouver le parrain initial à l’origine de l’inscription d’un utilisateur
+- Réorganiser l’arborescence en cas de suppression d’un utilisateur
+- Trouver tous les utilisateurs qui ont parrainés plus de x utilisateurs
+- Trouver tous les utilisateurs qui n’ont parrainé personne
+- Lister les x utilisateurs ayant parrainé le plus grand nombre de personnes. 
+Le candidat sera jugé sur la pertinence de son choix technique et l’argumentation des motivations de 
+ses choix.
+
+
+
+
+
+Si la liste des utilisateurs est potentiellement infini,
+je choisi un AVL,
+A peu prés tout les serveurs SQL sont construit avec des AVL, et leurs fonctions d'équilibrages associé.
+
+	je créerais donc une table de jointure entres utilisateurs qui comprenent un id de jointure, un id_parrain et un id_parrainé.
+	id_parrainé devras etre unique.
+	Je crée aussi dans la table user une collonne nb_de_parrainage, default = 0;
+
+	- il me suffira pour trouver le parrain d'un utilisateur de faire une requete sur cette table "where id_parrainé = user_id"
+	- il me suffira pour réorganiser l'orborescence de supprimer les jointures "where id_parrain = user_id or id_parrainé = user_id" et de decrementer le nb_de_parrainage associé
+	Ou les deplacer danas une autres table historique si on préféres garder un historique des parrainage.
+	- pour trouver tous les utilisateurs qui ont parrainés plus de x utilisateurs, il me suffiras de "select * from user where nb_de_parrainage > x"
+	- Trouver tous les utilisateurs qui n’ont parrainé personne : "select * from user where nb_de_parrainage = 0"
+	- Pour trouver les x utilisateurs ayant parrainé le plus grand nombre d'utilisateur je ferais un "select * from user ORDER BY nb_de_parrainage LIMIT 0,x";
+Si la liste d'utilisateurs est fini, je fait une table de hash, mais je pense que c'est pas vraiment la question ...
+
+

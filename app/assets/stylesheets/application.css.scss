@@ -1,0 +1,66 @@
+// Place all the styles related to the Application controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@import url(http://fonts.googleapis.com/css?family=Raleway:400,100,200,300);
+@import url(http://fonts.googleapis.com/css?family=Oswald:300,700,400);
+
+body {
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Change if height of navigation changes. */
+}
+
+.thumb {
+    margin-bottom: 30px;
+}
+
+footer {
+    margin: 50px 0;
+}
+
+html {
+	height: 100%;
+}
+
+h1 {
+	font-family: Oswald;
+	text-align: center; 
+}
+
+.simple {
+  width: 500px;
+  margin: 20px auto;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.fancy {
+  margin: 20px auto;
+  padding: 50px;
+  border: solid black 2px;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+/* empêche la sélection */
+[draggable] {
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+ul {         
+       padding:0 0 0 0;
+       margin:0 0 0 0;
+   }
+   ul li {     
+       list-style:none;
+       margin-bottom:25px;           
+   }
+   ul li img {
+       cursor: pointer;
+   }
