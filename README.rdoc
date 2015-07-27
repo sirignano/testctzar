@@ -46,12 +46,12 @@ A peu prés tout les serveurs SQL sont construit avec des AVL, et leurs fonction
 	id_parrainé devras etre unique.
 	Je crée aussi dans la table user une collonne nb_de_parrainage, default = 0;
 
-	- il me suffira pour trouver le parrain d'un utilisateur de faire une requete sur cette table "where id_parrainé = user_id"
-	- il me suffira pour réorganiser l'orborescence de supprimer les jointures "where id_parrain = user_id or id_parrainé = user_id" et de decrementer le nb_de_parrainage associé
+- il me suffira pour trouver le parrain d'un utilisateur de faire une requete sur cette table "where id_parrainé = user_id"
+-  il me suffira pour réorganiser l'orborescence de supprimer les jointures "where id_parrain = user_id or id_parrainé = user_id" et de decrementer le nb_de_parrainage associé
 	Ou les deplacer danas une autres table historique si on préféres garder un historique des parrainage.
-	- pour trouver tous les utilisateurs qui ont parrainés plus de x utilisateurs, il me suffiras de "select * from user where nb_de_parrainage > x"
-	- Trouver tous les utilisateurs qui n’ont parrainé personne : "select * from user where nb_de_parrainage = 0"
-	- Pour trouver les x utilisateurs ayant parrainé le plus grand nombre d'utilisateur je ferais un "select * from user ORDER BY nb_de_parrainage LIMIT 0,x";
+-  pour trouver tous les utilisateurs qui ont parrainés plus de x utilisateurs, il me suffiras de "select * from user where nb_de_parrainage > x"
+-  Trouver tous les utilisateurs qui n’ont parrainé personne : "select * from user where nb_de_parrainage = 0"
+-  Pour trouver les x utilisateurs ayant parrainé le plus grand nombre d'utilisateur je ferais un "select * from user ORDER BY nb_de_parrainage LIMIT 0,x";
 Si la liste d'utilisateurs est fini, je fait une table de hash, mais je pense que c'est pas vraiment la question ...
 
 
